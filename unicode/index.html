@@ -1,0 +1,430 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<title>Unicode and ECMAScript 6</title>
+	
+	<link href="../csss/slideshow.css" rel="stylesheet" />
+	<link href="../csss/theme.css" rel="stylesheet" />
+	<link href="css/talk.css" rel="stylesheet" />
+	<script src="../csss/prefixfree.min.js"></script>
+</head>
+<body data-duration="35">
+
+<header id="intro" class="slide slide-intro util-cover">
+	<h1>
+		Unicode 与 ES6
+	</h1>
+	<p class="attribution">by 阮一峰</p>
+</header>
+<section>
+	<header class="inverse slide slide-who util-cover">
+		<h2 class="util-round-corner">Who am I?</h2>
+    <ul class="delayed util-round-corner util-left">
+      <li>以前是老师</li>
+      <li>现在Alipay.com工作</li>
+    </ul>
+    <ul class="delayed util-round-corner util-left">
+      <li>《软件随想录》、《黑客与画家》的译者</li>
+      <li>《ECMAScript 6入门》、《如何变得有思想》的作者</li>
+    </ul>
+    <div>
+      <img class="delayed slide-who-book1" src="image/book1.jpg" />
+      <img class="delayed slide-who-book2" src="image/book2.jpg" />
+      <img class="delayed slide-who-book3" src="image/book3.jpg" />
+      <img class="delayed slide-who-book3" src="image/book4.jpg" />
+    </div>
+	</header>
+	
+	<section class="slide slide-definition util-cover" title="what is unicode?">
+		<dl class="util-shadow-area util-round-corner">
+      <dt>Unicode</dt> 
+      <dd>a computing industry standard for providing a unique code point — a number — for each character.  <cite>(from wikipedia)</cite></dd>
+    </dl>
+	</section>
+	
+	<section class="slide slide-encoding util-cover">
+		<h2>Unicode编号规则</h2>
+		<ul class="delayed">
+			<li>从0开始编号 u+0000 = null</li>
+      <li>2<sup>16</sup>（65536）个号码组成一个平面(plain)</li>
+      <li>目前共有17个平面</li>
+    </ul>
+    <ul class="delayed">
+      <li>1个基本平面（BMP）：U+0000～U+FFFF</li>
+      <li>16个辅助平面（SMP）：U+010000～U+10FFFF</li>
+      <li>整个空间大小：2<sup>21</sup></li>
+		</ul>
+    <ul class="delayed">
+       <li>最新7.0版</li>
+       <li>共计109449个符号，包含cjk字符74500个（68%）</li>
+    </ul>
+	</section>
+	
+	<section class="slide slide-utf32" id="navigation">
+		<h2>UTF-32编码</h2>
+		<p>4个字节表示一个字符，</p>
+    <p>完全对应Unicode编码，</p>
+    <p>比如，字母a为0x00000061</p>
+		<ul class="delayed">
+      <li>Pro：查找效率高，时间复杂度<em>o(1)</em></li>
+			<li>Con：浪费空间，比相同ASCII编码文件大四倍</li>
+ 		</ul>
+	</section>
+
+ 	<section class="slide slide-request util-cover">
+    <h2>我们需要一种<br />节省空间的<br />表示法！</h2>
+  </section>
+
+ 	<section class="slide slide-utf8">
+    <h2>UTF-8编码</h2>
+    <p>变长编码法，</p>
+    <p>长度为1～4个字节</p>
+    <table class="delayed">
+      <thead>
+        <tr><td>编号范围</td><td>字节</td></tr>
+      </thead>
+      <tbody>
+        <tr><td>0x0000 – 0x007F</td><td>1</td></tr>
+        <tr><td>0x0080 – 0x07FF</td><td>2</td></tr>
+        <tr><td>0x0800 – 0xFFFF</td><td>3</td></tr>
+        <tr><td>0x010000 – 0x10FFFF</td><td>4</td></tr>
+      </tbody>      
+    </table>
+  </section>
+
+  <section class="slide slide-utf16">
+    <h2>UTF-16编码</h2>
+    <p>变长编码法，</p>
+    <p>长度为2个字节或4个字节</p>
+    <table class="delayed">
+      <thead>
+        <tr><td>编号范围</td><td>字节</td></tr>
+      </thead>
+      <tbody>
+        <tr><td>0x0000 – 0xFFFF</td><td>2</td></tr>
+        <tr><td>0x010000 – 0x10FFFF</td><td>4</td></tr>
+      </tbody>      
+    </table>
+  </section>
+
+  <section class="slide slide-utf16-encoding">
+    <h2>utf-16编码规则</h2>
+    <ul>
+    <li>unicode编号 0xD800 ~ 0xDFFF 为空段</li>
+    <li>编号大于 0xFFFF 的字符
+    <ul>
+      <li>前半段映射在 0xD800 ~ 0xDBFF（空间大小2<sup>10</sup>）</li>
+      <li>后半段映射在 0xDC00 ~ 0xDFFF（空间大小2<sup>10</sup>）</li>
+    </ul>
+    </li>
+    </ul>
+  </section>
+
+  <section class="slide slide-utf16-formula">
+    <h2>转码公式</h2>
+    <pre><code lang="javascript">
+    H = Math.floor((c-0x10000) / 0x400)+0xD800
+
+    L = (c - 0x10000) % 0x400 + 0xDC00
+    </code></pre>
+  </section>
+
+  <section class="slide slide-utf16-example">
+    <style scoped>
+      div {
+        font-size: 700%;
+      }
+      h2, div{
+        margin: 0 auto;
+        text-align: center;
+      }
+    </style>
+    <h2>U+1D306</h2>
+    <div>𝌆</div>
+  </section>
+
+  <section class="slide slide-utf16-example2">
+     <pre><code lang="javascript">  
+    H = Math.floor((0x1D306-0x10000)/0x400)+0xD800
+      = 0xd834
+
+    L = (0x1D306-0x10000) % 0x400+0xDC00
+      = 0xDF06
+     </code></pre>
+     <h2 class="delayed">0xD834 0xDF06</h2>
+  </section>
+
+</section>
+
+<section>
+	<header class="slide slide-question util-cover">
+    <style scoped>
+      h1{
+        width: 40%;
+        font-size: 2.5em;
+        line-height: 1.5;
+      }
+    </style>
+		<h1>Which encoding method does JavaScript use?</h1>
+	</header>
+	
+	<section class="slide slide-answer">
+    <h1 class="delayed">None!</h1>
+    <h2 class="delayed">JavaScript uses UCS-2!</h2>
+	</section>
+	
+	<section class="slide slide-history util-cover">
+		<h2 class="util-shadow-area util-round-corner">Some History</h2>
+		<div class="delayed util-shadow-area util-round-corner">
+      <p>古代，有两个团队同时搞“统一字符集”</p>
+      <ul>
+      <li>Unicode团队（since 1988）</li>
+      <li>UCS团队（since 1989）</li>
+      </ul>
+      <p>1991年10月，两个团队决定合并字符集。</p> 
+    </div>
+	</section>
+	
+	<section class="slide slide-timeline">
+		<h2>Timeline</h2>
+		<ul>
+      <li>1990，    UCS-2编码发布（只支持16位）</li>
+      <li>1995.5，   JavaScript诞生</li>
+      <li>1995.10，  第一个JavaScript解释器</li>
+      <li>1996.7，   UTF-16发布，取代UCS-2</li>
+      <li>1996.11，  Netscope提交JavaScript标准</li>
+    </ul>
+	</section>
+	
+	<section class="slide slide-conclusion">
+		<style scoped>
+			h2 {
+				font-size: 200%;
+				font-weight: bold;
+			}
+      ul{
+        font-size: 150%;
+      }
+		</style>
+		<h2>小结</h2>
+    <ul>
+      <li>JavaScript采用Unicode字符编码</li>
+      <li>只支持16位Unicode字符</li>
+    </ul>  
+	</section>
+
+    <section class="slide slide-utf16-example">
+    <style scoped>
+      div {
+        font-size: 700%;
+      }
+      h2, div{
+        margin: 0 auto;
+        text-align: center;
+      }
+    </style>
+    <h2>U+1D306</h2>
+    <div>𝌆</div>
+  </section>
+	
+	<section class="slide slide-char-error">
+		<pre><code lang="javascript">
+    '𝌆'.length     
+    // 2
+    '𝌆'==='\u1D306'     
+    // false
+    '𝌆'.charAt(0)      
+    // " "
+    '𝌆'.charCodeAt(0)    
+    // 55348（0xD834） 
+    </code></pre>
+	</section>
+	
+	<section class="slide slide-equation">
+    <style scoped>
+      h1{
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 95%;
+        font-size: 130%;
+      }
+    </style>
+    <h1 class="util-round-corner"><pre><code lang="javascript">
+    '𝌆' === '\uD834\uDF06'
+    </code></pre></h1>
+	</section>
+
+  <section class="slide slide-es5-hack">
+    <h2>Hack：遍历字符串</h2>
+    <pre><code lang="javascript">
+    while (++index < length) {
+      // ...
+      if (charCode >= 0xD800 && charCode <= 0xDBFF) {
+        output.push(character + string.charAt(++index));
+      } else {
+        output.push(character);
+      }
+    }
+    </code></pre>    
+  </section>
+
+  <section class="slide slide-problems">
+    <h2>Similar Problems</h2>
+    <ul>
+      <li>String.prototype.replace()</li>
+      <li>String.prototype.substring()</li>
+      <li>String.prototype.slice()</li>
+      <li>...</li>
+    </ul>
+  </section>  
+</section>
+
+<section>
+	<section class="slide slide-es6-welcome util-cover">
+    <style scoped>
+      h1{
+        width: 45%;
+        font-size: 300%;
+        font-weight: bold;
+      }
+    </style>
+		<h1>Now, we have ES6!</h1>
+	</section>
+	
+	<section class="slide slide-es6-way">
+		<h2>遍历字符串：ES6's way</h2>
+		<pre><code lang="javascript">
+    for (let s of string ) {
+      // ...
+    }
+    </code></pre>
+	</section>
+	
+	<section class="slide slide-length">
+		<h2>字符串长度</h2>
+		<pre><code lang="javascript">
+    function codePointLength(string) {
+      return Array.from(string).length;
+    }
+    </code></pre>
+	</section>
+	
+	<section class="slide slide-expression">
+		<h2>Unicode字符表示法</h2>
+		<pre><code lang="javascript">
+    '𝌆'==='\u1D306' // false
+
+    '𝌆'==='\u{1D306}' // true    
+    </code></pre>
+	</section>
+	
+	<section class="slide slide-functions">
+		<h2>字符串处理函数</h2>
+		<ul>
+      <li>String.fromCodePoint()</li>
+      <li>String.prototype.codePointAt()</li>
+      <li>String.prototype.at()</li>
+		</ul>
+	</section>
+	
+	<section class="slide slide-regular">
+		<h2>正则表达式</h2>
+		<pre><code lang="javascript">
+    /^.$/.test('𝌆') // false
+
+    /^.$/u.test('𝌆') // true    
+    </code></pre>
+	</section>
+	
+  <section class="slide slide-composition">
+    <style scoped>
+      div {
+        font-size: 700%;
+      }
+      h2, div{
+        margin: 0 auto;
+        text-align: center;
+      }
+    </style>
+    <h2>合成字符</h2>
+    <div>Ǒ</div>
+  </section>
+
+	<section class="slide slide-composition-method">
+		<h2>Unicode提供的两种方法</h2>
+		<ul>
+      <li>方法一：单个字符</li>
+      <li>Ǒ（\u01D1）</li>
+      <li>方法二：字符合成</li>
+      <li>O（\u004F） + ˇ（\u030C）</li>
+		</ul>
+	</section>
+	
+	<section class="slide slide-normalize">
+		<h2>Unicode正规化</h2>
+		<pre><code lang="javascript">
+      '\u01D1'==='\u004F\u030C' 
+      //false
+      '\u01D1'.normalize() === '\u004F\u030C'.normalize() 
+      // true
+    </code></pre>
+	</section>
+</section>
+<section class="slide slide-thanks util-cover" title="The End">
+  <style scoped>
+    h1{
+      width: 30%;
+      font-size: 250%;
+      color: #D35400;
+      float: right;
+    }
+  </style>
+	<h1>Thanks for your time!</h1>
+</section>
+
+<footer class="slide slide-end">
+  <style scope>
+  .item:not(.current){
+    display:none;
+  }
+  .item{
+    position: absolute;
+    top:50%;
+    transform: translate(-50%,-50%);
+    left: 50%;
+  }
+  </style>
+  <h2 class="item delayed">Wanna watch again?</h2>
+  <p class="item delayed">slides.ruanyifeng.<br />com/unicode/</p>
+  <h2 class='item delayed'>Wanna learn more ES6?</h2>
+  <p class="item delayed">es6.ruanyifeng.com</p>
+  <h2 class="item delayed">Follow me @ruanyf</h2>
+    
+</footer>
+
+<script src="../csss/slideshow.js"></script>
+<script src="../csss/plugins/css-edit.js"></script>
+<script src="../csss/plugins/css-snippets.js"></script>
+<script src="../csss/plugins/css-controls.js"></script>
+<script src="../csss/plugins/code-highlight.js"></script>
+<script>
+var slideshow = new SlideShow();
+
+var snippets = document.querySelectorAll('.snippet');
+for(var i=0; i<snippets.length; i++) {
+	new CSSSnippet(snippets[i]);
+}
+
+var cssControls = document.querySelectorAll('.css-control');
+for(var i=0; i<cssControls.length; i++) {
+	new CSSControl(cssControls[i]);
+}
+</script>
+	
+</body>
+</html>

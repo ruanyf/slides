@@ -1,0 +1,324 @@
+/* General */
+
+body{
+  font-family: Georgia, "Times New Roman", 
+             "Microsoft YaHei", "微软雅黑", 
+             STXihei, "华文细黑", 
+             serif;
+}
+
+#css-controls-demo label {
+	display: block;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio:0) {
+/* hack to avoid using the Object element in Safari/WebKit, due to WebKit Bug 27190 */
+	object[type="image/svg+xml"] {
+		display: none;
+	}
+	
+	#intro h1 {
+		background: url(logo.svg) no-repeat center;
+		background-size:100% auto;
+	}
+}
+
+cite,
+em{ 
+  font-style: italic;
+}
+
+/* slide-intro */
+
+.slide-intro {
+	background: url(../image/flight.jpg) no-repeat center center fixed;
+	padding: 0;
+	border: 0;
+}
+
+.slide-intro h1 {
+	text-align: center;
+	margin: 3% auto auto;
+  font-size: 2.5em;
+  padding: 0.1em;
+  color: rgba(0,0,0,0.4);
+}
+
+.slide-intro .attribution {
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+	text-align: center;
+	font-size: 0.8em;
+	line-height: 100%;
+	color: white;
+	text-shadow: none;
+	background: url(../image/flight.jpg) bottom;
+	overflow: hidden;
+}
+
+/* slide-who */
+
+.slide-who{
+  background: url(../image/desert.jpg) no-repeat center center fixed;
+}
+
+.slide-who h2{
+  width: 100%;
+  background-color: rgba(0,0,0,0.4);
+  text-align: center;
+}
+
+.slide-who ul{
+  margin: 1em auto;
+  background-color: rgba(0,0,0,0.7);
+  padding: 0.3em; 
+  font-size: 0.8em;
+}
+
+.silde-who div{
+  width: 100%;  
+  position: relative;
+}
+
+.slide-who div img{
+  width: 300px;
+  height: 450px;
+  display: block;
+  margin: 5% auto auto 60%;
+  display: absolute;
+}
+
+.slide-who div img:not(.current){
+  display: none;
+}
+
+.slide-who-book1{
+  transform: rotate(0deg);
+}
+
+.slide-who-book2{
+  transform: rotate(2deg);
+}
+
+.slide-who-book3{
+  transform: rotate(4deg);
+  margin: 10% auto;}
+
+.slide-who-book4{
+  transform: rotate(6deg);
+}
+
+/* slide-definition */
+
+.slide-definition{
+  background: url(../image/wikipedia.jpg) no-repeat center center fixed;
+}
+
+.slide-definition dl{
+  transform: rotate(3deg);
+  font-family: 'Courier New', Courier, monospace;
+  width: 65%;
+  margin: 10% auto;
+  padding: 1em;
+}
+
+.slide-definition dt{
+  font-size: 180%;
+  font-weight: bold;
+}
+
+.slide-definition dd{
+  font-size: 130%;
+  margin-left: 2em;
+  color: #00ff33;
+}
+
+.slide-definition cite{
+  color: yellow;
+}
+
+/* slide-encoding */
+
+.slide-encoding{
+  background: #D35400 no-repeat center center fixed;
+}
+
+.slide-encoding ul:not(.current){
+  height: 0px;
+  width: 0px;
+  transition: 1s;
+  visibility: hidden;
+}
+
+.slide-encoding ul.current{
+  height: 100%;
+  width: 100%;
+  visibility: initial;
+}
+
+/* slide-utf32 */
+/* slide-utf8 */
+/* slide-utf16 */
+/* slide-utf16-encoding */
+/* slide-utf16-formula */
+/* slide-utf16-example */
+
+.slide-utf32,
+.slide-utf8{
+  background: #4183D7;
+}
+
+.slide-utf16,
+.slide-utf16-encoding,
+.slide-utf16-formula,
+.slide-utf16-example,
+.slide-utf16-example2,
+.slide-char-error,
+.slide-equation,
+.slide-es5-hack,
+.slide-problems{
+  background: #E74C3C;
+}
+
+.slide-utf32 p,
+.slide-utf8 p,
+.slide-utf16 p,
+.slide-utf16-encoding p{
+  font-size: 90%;
+  text-indent: 2em;
+}
+
+.slide-utf32 ul,
+.slide-utf8 table,
+.slide-utf16 table{
+  border-top: 1px solid #eee;
+  margin-top: 1em;
+}
+
+.slide-utf8 table,
+.slide-utf16 table{
+  width: 85%;
+}
+
+.slide-utf16-example h2,
+.slide-utf16-example2 h2{
+  text-align: center;
+}
+
+/* slide-request */
+/* slide-question */
+
+.slide-request{
+  background: url(../image/bender.jpg) no-repeat center center fixed;
+}
+
+.slide-question{
+  background: url(../image/bender2.jpg) no-repeat center center fixed;
+}
+
+.slide-answer{
+  background: #1F3A93;
+}
+
+.slide-answer h1 { 
+  font-size: 4em;
+  margin:auto 0;
+  text-align: center;
+}
+
+.slide-answer h2{
+  font-size: 4em;
+  text-align: center;
+}
+
+.slide-answer h1:not(.current),
+.slide-answer h2:not(.current){
+   visibility: hidden;
+}
+
+.slide-history{
+  background: url(../image/newspaper.jpg) no-repeat center center fixed; 
+}
+
+.slide-history h2{
+  font-size: 150%;
+  padding: 0.3em 0.3em;
+  margin-bottom: 0.5em;
+}
+
+.slide-history div{
+  text-align: left;
+  padding: 1em;  
+}
+
+.slide-history div ul{
+  margin-left: 2em;
+  background: transparent;
+}
+
+.slide-timeline,
+.slide-conclusion{
+  background: #1F3A93;
+}
+
+.slide-es6-welcome{
+  background: url(../image/doctor.jpg) no-repeat center center fixed; 
+}
+
+.slide-es6-way,
+.slide-length,
+.slide-expression,
+.slide-functions,
+.slide-regular,
+.slide-composition,
+.slide-composition-method,
+.slide-normalize{
+  background: #81CFE0;
+}
+
+.slide-composition h2{
+  text-align: center;
+}
+
+.slide-thanks{
+  background: url(../image/end.jpg) no-repeat center center fixed; 
+}
+
+.slide-end{
+  background: #1E824C;
+}
+
+.slide-end *{
+  text-align: center;
+}
+
+.slide-end p{
+  font-size: 300%;
+}
+
+/* utility */
+
+.util-cover{
+  background-repeat: no-repeat;
+	background-attachment:fixed;
+	background-size: cover;
+	background-position:50% 50%; 
+}
+
+.util-round-corner{
+  border-radius: 15px;
+}
+
+.util-left{
+  width: 50%;
+  float: left;
+}
+
+.util-right{
+  width: 50%;
+  float: right;
+}
+
+.util-shadow-area{
+  background-color: rgba(0,0,0,0.7);
+} 
