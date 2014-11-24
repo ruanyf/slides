@@ -54,10 +54,9 @@
     </ul>
     <ul class="delayed">
       <li>2<sup>16</sup>（65536）个号码组成一个平面(plain)</li>
-      <li>目前共有17个平面</li>
+      <li>目前共有17个平面，整个空间大小：2<sup>21</sup></li>
       <li>1个基本平面（BMP）：U+0000～U+FFFF</li>
       <li>16个辅助平面（SMP）：U+010000～U+10FFFF</li>
-      <li>整个空间大小：2<sup>21</sup></li>
     </ul>
 	</section>
 	
@@ -176,7 +175,7 @@
 	
 	<section class="slide slide-history util-cover">
 		<h2 class="util-shadow-area util-round-corner">Some History</h2>
-		<div class="delayed util-shadow-area util-round-corner">
+		<div class="util-shadow-area util-round-corner">
       <p>古代，有两个团队同时搞“统一字符集”</p>
       <ul>
       <li>Unicode团队（since 1988）</li>
@@ -357,9 +356,9 @@
 		<h2>Unicode提供的两种方法</h2>
 		<ul>
       <li>方法一：单个字符</li>
-      <li>Ǒ（\u01D1）</li>
+      <pre><code lang="javascript">Ǒ（\u01D1）</code></pre>
       <li>方法二：字符合成</li>
-      <li>O（\u004F） + ˇ（\u030C）</li>
+      <pre><code lang="javascript">O（\u004F） + ˇ（\u030C）</code></pre>
 		</ul>
 	</section>
 	
