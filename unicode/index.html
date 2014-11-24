@@ -49,17 +49,15 @@
 		<h2>Unicode编号规则</h2>
 		<ul class="delayed">
 			<li>从0开始编号 u+0000 = null</li>
-      <li>2<sup>16</sup>（65536）个号码组成一个平面(plain)</li>
-      <li>目前共有17个平面</li>
+      <li>最新7.0版</li>
+      <li>共计109449个符号，包含cjk字符74500个（68%）</li>
     </ul>
     <ul class="delayed">
+      <li>2<sup>16</sup>（65536）个号码组成一个平面(plain)</li>
+      <li>目前共有17个平面</li>
       <li>1个基本平面（BMP）：U+0000～U+FFFF</li>
       <li>16个辅助平面（SMP）：U+010000～U+10FFFF</li>
       <li>整个空间大小：2<sup>21</sup></li>
-		</ul>
-    <ul class="delayed">
-       <li>最新7.0版</li>
-       <li>共计109449个符号，包含cjk字符74500个（68%）</li>
     </ul>
 	</section>
 	
@@ -68,7 +66,7 @@
 		<p>4个字节表示一个字符，</p>
     <p>完全对应Unicode编码，</p>
     <p>比如，字母a为0x00000061</p>
-		<ul class="delayed">
+		<ul>
       <li>Pro：查找效率高，时间复杂度<em>o(1)</em></li>
 			<li>Con：浪费空间，比相同ASCII编码文件大四倍</li>
  		</ul>
@@ -82,7 +80,7 @@
     <h2>UTF-8编码</h2>
     <p>变长编码法，</p>
     <p>长度为1～4个字节</p>
-    <table class="delayed">
+    <table>
       <thead>
         <tr><td>编号范围</td><td>字节</td></tr>
       </thead>
@@ -99,7 +97,7 @@
     <h2>UTF-16编码</h2>
     <p>变长编码法，</p>
     <p>长度为2个字节或4个字节</p>
-    <table class="delayed">
+    <table>
       <thead>
         <tr><td>编号范围</td><td>字节</td></tr>
       </thead>
@@ -154,7 +152,7 @@
     L = (0x1D306-0x10000) % 0x400+0xDC00
       = 0xDF06
      </code></pre>
-     <h2 class="delayed">0xD834 0xDF06</h2>
+     <h2>0xD834 0xDF06</h2>
   </section>
 
 </section>
