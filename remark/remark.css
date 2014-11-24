@@ -1,0 +1,38 @@
+@import url(yanone.css);
+@import url(droid.css);
+@import url(ubuntu.css);
+
+body { font-family: 'Droid Serif'; }
+
+h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+}
+
+.remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+
+table {
+		font-family: verdana,arial,sans-serif;
+		font-size:100%
+		color:#333333;
+		border-width: 1px;
+		border-color: #666666;
+		border-collapse: collapse;
+		width: 90%;
+}
+
+table th {
+		border-width: 1px;
+		padding: 0.6em;
+		border-style: solid;
+		border-color: #666666;
+		background-color: #dedede;
+}
+
+table td {
+		border-width: 1px;
+		padding: 0.6em;
+		border-style: solid;
+		border-color: #666666;
+		background-color: #ffffff;
+}
