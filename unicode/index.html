@@ -50,7 +50,7 @@
 		<ul class="delayed">
 			<li>从0开始编号 u+0000 = null</li>
       <li>最新7.0版</li>
-      <li>共计109449个符号，包含cjk字符74500个（68%）</li>
+      <li>共计109449个符号，包含CJK字符74500个（68%）</li>
     </ul>
     <ul class="delayed">
       <li>2<sup>16</sup>（65536）个号码组成一个平面(plain)</li>
@@ -108,13 +108,13 @@
   </section>
 
   <section class="slide slide-utf16-encoding">
-    <h2>utf-16编码规则</h2>
+    <h2>UTF-16编码规则</h2>
     <ul>
-    <li>unicode编号 0xD800 ~ 0xDFFF 为空段</li>
+    <li>Unicode编号 0xD800 ~ 0xDFFF 为空段</li>
     <li>编号大于 0xFFFF 的字符
     <ul>
-      <li>前半段映射在 0xD800 ~ 0xDBFF（空间大小2<sup>10</sup>）</li>
-      <li>后半段映射在 0xDC00 ~ 0xDFFF（空间大小2<sup>10</sup>）</li>
+      <li>一半映射在 0xD800 ~ 0xDBFF（空间大小2<sup>10</sup>）</li>
+      <li>一半映射在 0xDC00 ~ 0xDFFF（空间大小2<sup>10</sup>）</li>
     </ul>
     </li>
     </ul>
@@ -208,8 +208,8 @@
 		</style>
 		<h2>小结</h2>
     <ul>
-      <li>JavaScript采用Unicode字符编码</li>
-      <li>只支持16位Unicode字符</li>
+      <li>JavaScript采用Unicode字符集</li>
+      <li>只支持16位UTF-16编码，不支持32位</li>
     </ul>  
 	</section>
 
