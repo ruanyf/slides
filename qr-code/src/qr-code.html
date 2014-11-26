@@ -23,7 +23,7 @@
                 var img;
                 try {
                     img = document.createElement('img');
-                    img.src = QRCode.generatePNG(this.data);
+                    img.src = QRCode.generatePNG(this.data, {modulesize:10});
                     this.clear();
                     this.appendChild(img);
                 }
