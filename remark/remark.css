@@ -36,3 +36,8 @@ table td {
 		border-color: #666666;
 		background-color: #ffffff;
 }
+
+img {
+  max-width: 90%;
+  max-height: 90%;
+}
