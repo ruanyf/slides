@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>相关维度的可视化</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="../remark/remark.css" type="text/css" media="screen" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# 相关维度的可视化
+
+摘自[《Visualising Correlations using Graph》](https://medium.com/@JavierBurroni/visualising-correlations-using-graph-2169c6415427)
+
+---
+
+## 问题
+
+一个n维数据集，各个维度之间的相关性如何可视化？
+
+---
+
+## 解决方案
+
+- 每个维度与其他维度之间，都有一个相关系数。n维数据集，共有n<sup>2</sup>个相关系数（含自身与自身的相关系数）。
+
+- 非零的相关系数都转为1。
+
+- 使用单向图（graph）表示，每个维度都是一个节点，节点与节点之间的相关性系数就是一条边。
+
+---
+
+![](image/correlation01.png)
+
+---
+
+## 相关系数的门槛值
+
+threshold = 1
+
+![](image/correlation02.png)
+
+---
+
+## threshold = 0.55
+
+![](image/correlation03.png)
+
+---
+
+## threshold = 0.45
+
+![](image/correlation04.png)
+
+---
+
+## threshold = 0.35
+
+![](image/correlation05.png)
+
+---
+
+## threshold = 0.25
+
+![](image/correlation06.png)
+
+---
+
+class: center, middle
+
+# END
+
+    </textarea>
+    <script src="../remark/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
+
