@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>强类型JavaScript解决方案</title>
+    <title>强类型 JavaScript 的解决方案</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="../remark/remark.css" type="text/css" media="screen" />
   </head>
@@ -10,11 +10,13 @@
 
 class: center, middle
 
-# 强类型JavaScript解决方案
+# 强类型 JavaScript 解决方案
 
 2015.01
 
 ---
+
+class: middel
 
 # 三种方案
 
@@ -28,11 +30,11 @@ class: center, middle
 
 # TypeScript
 
-微软推出的JavaScript超集
+- 微软推出的JavaScript超集
 
-http://www.typescriptlang.org/
+- http://www.typescriptlang.org/
 
-安装
+- 安装
 
 ```bash
 $ npm install -g typescript
@@ -40,24 +42,32 @@ $ npm install -g typescript
 
 ---
 
-# 柱状图（Bar Chart）
+## 函数示例
 
-- 用户最熟悉的图表类型，最易解读。
-- 适用场合：二维数据（每个数据点包括两个值x和y），比如“年销售额”。
+```javascript
 
-![](bar1.png)
+// greet.ts
+
+// 参数 person 预期类型为字符串
+function greeter(person: string) {
+  console.log("Hello, " + person);
+}
+
+// 实际类型为数组
+greeter([0, 1, 2]);
+
+```
 
 ---
 
-## 注意点
+## 编译结果
 
-- 只适合中等规模的数据集。
+```bash
 
-- 只适合两维之中，有一个维度存在比较关系
+$ tsc greeter.ts
+greet.ts(5,9): error TS2345: Argument of type 'number[]' is not assignable to parameter of type 'string'.
 
-- 特别适合表示某个维度随时间变化（存在趋势）。
-
-- 图形上用高度反映该维度的差异，用户容易辨别高度上的差异。
+```
 
 ---
 
