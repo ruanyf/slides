@@ -20,11 +20,11 @@ class: middel
 
 # 三种方案
 
-- TypeScript
+## - TypeScript
 
-- FlowCheck
+## - FlowCheck
 
-- Flow
+## - Flow
 
 ---
 
@@ -46,7 +46,7 @@ $ npm install -g typescript
 
 ```javascript
 
-// greet.ts
+// greeter.ts
 
 // 参数 person 预期类型为字符串
 function greeter(person: string) {
@@ -56,7 +56,7 @@ function greeter(person: string) {
 // 实际类型为数组
 greeter([0, 1, 2]);
 
-``
+```
 
 编译结果
 
@@ -71,9 +71,7 @@ to parameter of type 'string'.
 
 ---
 
-## 其他示例
-
-接口类型
+## Interface 类型
 
 ```javascript
 
@@ -92,12 +90,29 @@ greeter({firstname: "Jane", lastname: "User"});
 
 ---
 
-## 特殊情况
+## Class 类型
 
-- 如果x维不涉及时间，建议用颜色区分每根柱子，用来改变用户对趋势的关注。
-- 比如本赛季各队的赢球场数，x代表不同球队，y代表赢球数。
+```javascript
 
-![](bar2.png)
+class Point {
+  x: number;
+  y: number;
+
+  constructor(x: number, y: number) {
+    this.x = x;
+    this.y = y;
+  }
+
+  getDist() { 
+    return Math.sqrt(this.x * this.x + 
+      this.y * this.y); 
+  }
+}
+
+var p = new Point(3,4);
+var dist = p.getDist();
+
+```
 
 ---
 
