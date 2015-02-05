@@ -149,6 +149,7 @@ sum('hello','world')
 编译命令
 
 ```bash
+
 $ browserify -t flowcheck -t [reactify --strip-types] \
   input.js -o output.js
 
@@ -179,27 +180,74 @@ $ node output.js
 // throw new TypeError(message);
             ^
 TypeError: 
-Expected an instance of number got "hello", context: arguments / [number, number] / 0
-Expected an instance of number got "world", context: arguments / [number, number] / 1
+Expected an instance of number got "hello", 
+  context: arguments / [number, number] / 0
+Expected an instance of number got "world", 
+  context: arguments / [number, number] / 1
+
+```
+
+## 其他
+
+```javascript
+
+// 接口的类型
+type MyType = Array<number>;
+
+// ES6 Class
+class Person {
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+}
 
 ```
 
 ---
 
-# 饼图（Pie Chart）
+# Flow
 
-- 不是一种有效的可视化方式，因为用户不善于判断面积的相对大小。
-- 通常情况下，柱状图优于饼图，应该优先使用。
+- http://flowtype.org/
 
-![](pie1.png)![](pie-bar.png)
+- Facebook 推出的 JavaScript 代码类型检查工作，主要用于检查 React 源码
+
+- 安装
+
+```bash
+
+$ npm install --global flow-bin
+
+```
 
 ---
 
-## 注意点
+## 类型推断
 
-- 唯一的适用场合：反映一个组成部分与整体的关系，比如贫穷人口的百分比。
+```javascript
 
-![](pie2.png)
+// hello.js
+
+/* @flow */
+
+function foo(x) {
+  return x*10;
+}
+
+foo("Hello, world!");
+
+```
+
+类型推断
+
+```javascript
+
+$ flow check
+hello.js:7:5,19: string
+This type is incompatible with
+/hello.js:4:10,13: number
+
+```
 
 ---
 
