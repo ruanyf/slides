@@ -283,6 +283,7 @@ foo("Hello", 42);
 ```bash
 
 $ flow check
+
 type_annotations.js:4:10,21: number
 This type is incompatible with
 type_annotations.js:3:37,42: string
@@ -313,43 +314,60 @@ Property cannot be accessed on possibly null value
 nulls.js:7:38,41: null
 
 ```
+---
+
+## 类型注释
+
+```javascript
+/**
+  @param {number} x
+  @return {number}
+ */
+function square(x) {
+  return x * x;
+}
+
+square(5);
+```
+转换注释
+
+```bash
+$ flow port annotation.js
+
++function square(x: number) : number {
+   return x * x;
+ }
+
+```
 
 ---
 
-# 气泡图（Bubble Chart）
+## 其他
 
-- 散点图的一种变体，通过每个点的面积大小，反映三维数据。
-- 示例：飓风路径（三维：经度、纬度、强度）
+```javascript
 
-![](bubble1.png)
+// interface 的类型
+declare module 'foo-bar' {
+  declare function reverse(s: string): string;
+  declare function square(x: number): number;
+}
 
----
+// ES6 Class
+/* @flow */
+class C<X> {
+  x: X;
+  foo(x: X) { this.x = x; }
+  bar(): X { return this.x; }
+}
 
-## 注意点
-
-- 用户不善于判断面积大小，所以气泡图只适用不要求精确识别第三维的场合。
-- 通过颜色或提示框，可用来表达四维数据（前提是其他两维不要求精确识别）。
-
-![](bubble2.png)
-
----
-
-# 雷达图（Radar Chart）
-
-- 适用于多维数据（四维以上），且每个维度必须可以排序（比如，国籍就不可以排序）
-- 数据点最多6个，否则无法辨别。因此，适用场合有限。
-- 示例：某队篮球选手的数据（维度：得分、篮板、助攻、抢断、封盖）
-
-![](radar-table.png)
-
----
-
-## 注意点
-
-- 面积越大的数据点，表示越重要。
-- 用户不熟悉这种图，解读有困难。 使用时尽量加上说明，减轻解读负担。
-
-![](radar.png)
+class D extends C<number> {
+  bar(): number {
+    this.x = super.bar() + 1;
+    return this.x;
+  }
+  static qux(): D { return new D(); }
+}
+```
 
 ---
 
