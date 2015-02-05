@@ -30,9 +30,9 @@ class: middel
 
 # TypeScript
 
-- 微软推出的JavaScript超集
-
 - http://www.typescriptlang.org/
+
+- 微软推出的JavaScript超集
 
 - 安装
 
@@ -42,7 +42,7 @@ $ npm install -g typescript
 
 ---
 
-## 函数示例
+## 函数的类型
 
 ```javascript
 
@@ -116,19 +116,73 @@ var dist = p.getDist();
 
 ---
 
-# 折线图（Line Chart）
+# Flowcheck
 
-适用于大数据集，尤其是那些趋势比单个数据点更重要的场合。
+- http://gcanti.github.io/flowcheck/
 
-![](line1.png)
+- 轻量级类型断言模块，可用于运行时。
+
+- 安装
+
+```bash
+
+$ npm install -g flowcheck
+
+```
 
 ---
 
-## 其他应用
+## 函数的类型
 
-两个二维数据集的比较，比如二氧化碳浓度与地球平均气温
+```javascript
 
-![](line2.png)
+// input.js
+
+function sum(a: number, b: number) {
+  return a + b;
+}
+
+sum('hello','world')
+
+```
+
+编译命令
+
+```bash
+$ browserify -t flowcheck -t [reactify --strip-types] \
+  input.js -o output.js
+
+```
+
+---
+
+## 编译后的结果
+
+```javascript
+
+// outpu.js
+
+var _f = require("flowcheck/assert");
+
+function sum(a, b) {
+	_f.check(arguments, _f.arguments([_f.number, _f.number]));
+  return a + b;
+}
+
+```
+
+运行结果
+
+```bash
+
+$ node output.js
+// throw new TypeError(message);
+            ^
+TypeError: 
+Expected an instance of number got "hello", context: arguments / [number, number] / 0
+Expected an instance of number got "world", context: arguments / [number, number] / 1
+
+```
 
 ---
 
