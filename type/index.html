@@ -56,16 +56,37 @@ function greeter(person: string) {
 // 实际类型为数组
 greeter([0, 1, 2]);
 
-```
+``
 
----
-
-## 编译结果
+编译结果
 
 ```bash
 
 $ tsc greeter.ts
-greet.ts(5,9): error TS2345: Argument of type 'number[]' is not assignable to parameter of type 'string'.
+greet.ts(5,9): error TS2345: 
+Argument of type 'number[]' is not assignable 
+to parameter of type 'string'.
+
+```
+
+---
+
+## 其他示例
+
+接口类型
+
+```javascript
+
+interface Person {
+  firstname: string;
+  lastname: string;
+}
+
+function greeter(person : Person) {
+  return "Hello, " + person.firstname + " " + person.lastname;
+}
+
+greeter({firstname: "Jane", lastname: "User"});
 
 ```
 
