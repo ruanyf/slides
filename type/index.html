@@ -186,6 +186,7 @@ Expected an instance of number got "world",
   context: arguments / [number, number] / 1
 
 ```
+---
 
 ## 其他
 
@@ -236,36 +237,82 @@ function foo(x) {
 
 foo("Hello, world!");
 
+function bar(x) {
+  return x.length;
+}
+
+var res = bar("Hello") + bar(42);
+
 ```
+---
 
-类型推断
+## 类型推断的结果
 
-```javascript
+```bash
 
 $ flow check
+
 hello.js:7:5,19: string
 This type is incompatible with
 /hello.js:4:10,13: number
 
+hello.js:10:10,17: property length
+Property not found in
+core.js:59:1,72:1: Number
+
 ```
 
 ---
 
-# 散点图（Scatter Chart）
+## 函数的类型
 
-- 适用场合：三维数据，其中由两个维度存在比较关系。
+```javascript
 
-- 比如，国家医疗支出与预期寿命（维度：国名、医疗支出、预期寿命）。
+/* @flow */
 
-![](scatter1.png)
+function foo(x: string, y: number): string {
+  return x.length * y;
+}
 
+foo("Hello", 42);
+
+```
+
+运行
+
+```bash
+
+$ flow check
+type_annotations.js:4:10,21: number
+This type is incompatible with
+type_annotations.js:3:37,42: string
+
+
+```
 ---
 
-## 注意点
+## null检查
 
-- 用户希望知道每个点的说明（尤其是边缘点），为了反映每个点的情况，需要为它们加上“浮动提示框”，或者标识不同颜色。
+```javascript
+/* @flow */
 
-![](scatter2.png)
+function length(x) {
+  return x.length;
+}
+
+var total = length("Hello") + length(null);
+```
+
+运行
+
+```bash
+$ flow check
+
+nulls.js:4:10,17: property length
+Property cannot be accessed on possibly null value
+nulls.js:7:38,41: null
+
+```
 
 ---
 
