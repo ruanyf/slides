@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>ES6: 现在就用</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+    <script src="../qr-code/src/polymer.js"></script>
+	  <script src="../qr-code/src/qr.js"></script>
+
+	<!-- Importing Custom Elements -->
+	<link rel="import" href="../qr-code/src/qr-code.html">
+  </head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>ES6: 现在就用</h1>
+					<h3>Using ES6 Today</h3>
+          <h3><qr-code data="http://slides.ruanyifeng.com/es6today/"></qr-code></h3>
+          <p>dwz.cn/CGJun</p>
+					<p>          
+						<small>2015.03.03</small>
+					</p>
+				</section>
+
+				<section data-markdown>
+          <script type="text/template">
+					  ## ES6 新增语法点（共18个）
+					  语法糖 | |非语法糖| |
+            ------------- | -------------
+            <small>1. Arrow functions</small> | <small>5. Default args</small>  | <small>1. Block scoping: let, const, function, class</small> | <small>6. Collections: Map, Set, WeakMap, WeakSet</small>
+            <small>2. String templates</small>  | <small>6. Spread operator</small>  | <small>2. Iterator</small> | <small>7. Symbol</small>
+            <small>3. Destructuring assignments</small>  | <small>7. Class</small> | <small>3. Generator</small> | <small>8. Proxy</small> 
+            <small>4. Object literals</small> | <small>8. New prototype methods (String, Array, Number, Object)</small> | <small>4. Module</small> | <small>9. Reflect </small>
+            |  | <small>5. Promise</small> | <small>10. Tail call optimization</small>
+
+          </script>
+				</section>
+
+				<section data-markdown>
+          <script type="text/template">
+					  ## io.js 支持的 ES6 语法（共10个）
+					  可靠API，默认打开 | 待测API，--es_staging |
+            ------------- | -------------
+            <small>1. Block scoping: let, const, function, class</small> | <small>1. Classes</small>  
+            <small>2. Collections: Map, Set, WeakMap, WeakSet</small>  | <small>2. Object literal</small>  
+            <small>3. Promises</small>  | 
+            <small>4. Iterator</small> | 
+            <small>5. generators</small> | 
+            <small>6. templates</small> |
+            <small>7. Symbol</small> |
+            <small>8. Binary and Octal literals, new string methods</small> |
+          </script>
+				</section>
+
+				<section data-markdown>
+          <script type="text/template">
+## Babel支持的ES6语法（共13个）
+
+不支持5个
+
+- Map, Set, Weakmap, WeakSet
+- Iterator
+- Symbol
+- Proxy
+- Reflect
+
+          </script>
+				</section>
+
+				<section data-markdown>
+          <script type="text/template">
+## io.js和Babel都不支持的
+
+- Proxy
+- Reflect
+          </script>
+				</section>
+
+				<section>
+					<h2>ES6 Lint</h2>
+					<table>
+            <thead>
+              <tr><th>jshint</th><th>eslint</th><th>babel-eslint</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><pre><code data-trim>
+// .jshintrc
+{
+  "esnext": true,
+  "moz": true
+}
+                </code></pre></td>
+                <td><pre><code data-trim>
+// .eslintrc
+{
+  "settings": {
+    "ecmascript": 6,
+    "jsx": true
+  }
+}
+                </code></pre></td>
+                <td><pre><code data-trim>
+// .eslintrc
+{
+  "parser": "babel-eslint",
+  "rules": {
+    "strict": 0
+  }
+}
+                </code></pre></td>
+              </tr>
+            </tbody>
+					</table>
+				</section>
+
+				<section data-markdown>
+          <script type="text/template">
+## ES6 编码风格
+          </script>
+				</section>
+
+				<section data-markdown>
+          <script type="text/template">
+## Block Scoping
+
+不使用var，优先使用const
+
+```javascript
+// bad
+var a = 1, b = 2, c = 3;
+
+// good
+const a = 1;
+const b = 2;
+const c = 3;
+
+// actually best
+const [a, b, c] = [1, 2, 3];
+```
+          </script>
+				</section>
+
+				<section data-markdown>
+          <script type="text/template">
+## Block Scoping
+
+- let, const 只用于严格模式。
+- let的常见使用场合：if语句块，for循环
+
+```javascript
+"use strict";
+
+if (true) {
+  let x = someValue;
+}
+
+for (let i = 0; i < 10; i++) {
+  console.log(i);
+}
+```
+          </script>
+				</section>
+
+				<section data-markdown>
+          <script type="text/template">
+## 字符串
+
+- 静态字符串一律使用单引号或反引号。
+- 动态字符串使用反引号。
+
+```javascript
+// bad
+const a = "foobar";
+const b = 'foo' + a + 'bar';
+
+// acceptable
+const c = `foobar`;
+
+// good
+const a  = 'foobar';
+const b = `foo${a}bar`;
+const c = 'foobar';
+```
+          </script>
+				</section>
+
+				<section data-markdown>
+          <script type="text/template">
+## Object
+
+- 单行定义的对象，最后一个成员不以逗号结尾。
+- 多行定义的对象，最后一个成员以逗号结尾。
+
+```javascript
+// bad
+const a = { k1: v1, k2: v2, };
+const b = {
+  k1: v1,
+  k2: v2
+};
+
+// good
+const a = { k1: v1, k2: v2 };
+const b = {
+  k1: v1,
+  k2: v2,
+};
+```
+          </script>
+				</section>
+
+				<section data-markdown>
+          <script type="text/template">
+## Object
+
+- 对象的方法使用简洁表达。
+
+```javascript
+// bad
+const a = {
+  f: function() {
+  }
+}
+
+// good
+const a =  {
+  f() {
+  }
+}
+```
+          </script>
+				</section>
+
+				<section data-markdown>
+          <script type="text/template">
+## Object
+
+- 对象一旦定义，就不得随意添加新的属性。
+- 如果添加属性不可避免，要使用Object.assign方法。
+
+```javascript
+// bad
+const a = {};
+a.x = 3;
+
+// if reshape unavoidable
+const a = {};
+Object.assign(a, { x: 3 });
+
+// good
+const a = { x: null };
+a.x = 3;
+```
+          </script>
+				</section>
+
+				<section data-markdown>
+          <script type="text/template">
+## 函数
+
+- 使用匿名函数的场合，一律改为使用箭头函数。
+
+```javascript
+// bad
+arr.reduce(function(x, y) { return x + y; }, 0);
+
+// good
+arr.reduce((x, y) => x + y, 0);
+```
+          </script>
+				</section>
+
+				<section data-markdown>
+          <script type="text/template">
+## 函数
+
+- 箭头函数取代Function.prototype.bind
+- 不应再用 self / _this / that 绑定 this
+
+```javascript
+// bad
+const self = this;
+const boundMethod = function(...params) {
+  return method.apply(self, params);
+}
+
+// acceptable
+const boundMethod = method.bind(this);
+
+// best
+const boundMethod = (...params) => method.apply(this, params);
+```
+          </script>
+				</section>
+
+				<section data-markdown>
+          <script type="text/template">
+## 函数
+
+- 所有配置项都应该集中在一个对象，放在最后一个参数
+- 布尔值不可以直接作为参数
+
+```bash
+// bad
+function divide(a, b, option = false ) {
+}
+
+// good
+function divide(a, b, { option = false } = {}) {
+}
+```
+          </script>
+				</section>
+
+				<section data-markdown>
+          <script type="text/template">
+## 区分Object和Map
+
+- 只有模拟实体对象时，才使用Object。
+- 如果只是需要key:value的数据结构，使用Map。因为Map有内建的遍历机制。
+
+```javascript
+let map = new Map(arr);
+
+for (let key of map.keys()) {
+  console.log(key);
+}
+
+for (let value of map.values()) {
+  console.log(value);
+}
+
+for (let item of map.entries()) {
+  console.log(item[0], item[1]);
+}
+```
+          </script>
+				</section>
+
+				<section data-markdown>
+          <script type="text/template">
+## for...of循环
+
+- for...of循环取代数组的forEach方法。因为for...of是所有数据结构统一的遍历方法。
+
+```javascript
+
+// bad
+arr.forEach(function (element, index) {
+});
+
+// good
+for(elem of arr){
+}
+```
+          </script>
+				</section>
+
+				<section data-markdown>
+          <script type="text/template">
+## Promise和Generator
+
+- 异步操作尽量返回Promise
+- 连续的多步操作尽量写成Generator
+
+```javascript
+function* longRunningTask() {
+  try {    
+    let value1 = yield step1();
+    let value2 = yield step2(value1);
+    let value3 = yield step3(value2);
+    let value4 = yield step4(value3);
+  } catch (e) {
+  }
+}
+```
+          </script>
+				</section>
+
+				<section data-markdown>
+          <script type="text/template">
+## 模块
+
+- 尽量使用ES6 module取代require。
+
+```javascript
+// bad
+const moduleA = require('moduleA');
+const func1 = moduleA.func1;
+const func2 = moduleA.func2;
+
+// good
+import { func1, func2 } from 'moduleA';
+```
+          </script>
+				</section>
+
+				<section style="text-align: left;">
+					<h1>THE END</h1>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
