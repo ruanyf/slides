@@ -438,6 +438,10 @@ import { func1, func2 } from 'moduleA';
 
 - 使用export取代module.exports。
 
+<table>
+<tbody>
+<tr>
+<td>
 ```javascript
 // bad
 var React = require('react');
@@ -449,7 +453,10 @@ var Breadcrumbs = React.createClass({
 });
 
 module.exports = Breadcrumbs;
-
+```
+</td>
+<td>
+```javascript
 // good
 import React from 'react';
 
@@ -461,6 +468,11 @@ const Breadcrumbs = React.createClass({
 
 export default Breadcrumbs;
 ```
+</td>
+</tr>
+</tbody>
+</table>
+
           </script>
 				</section>
 
