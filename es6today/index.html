@@ -441,7 +441,7 @@ import { func1, func2 } from 'moduleA';
 <table>
 <tbody>
 <tr>
-<td>
+<td><pre><code data-trim>
 ```javascript
 // bad
 var React = require('react');
@@ -454,8 +454,8 @@ var Breadcrumbs = React.createClass({
 
 module.exports = Breadcrumbs;
 ```
-</td>
-<td>
+</code></pre></td>
+<td><pre><code data-trim>
 ```javascript
 // good
 import React from 'react';
@@ -468,7 +468,7 @@ const Breadcrumbs = React.createClass({
 
 export default Breadcrumbs;
 ```
-</td>
+</code></pre></td>
 </tr>
 </tbody>
 </table>
