@@ -244,27 +244,29 @@ const b = {
           </script>
 				</section>
 
-				<!--section data-markdown>
+				<section data-markdown>
           <script type="text/template">
 ## Object
 
-- 对象的方法使用简洁表达。
+- 对象使用简洁表达。
 
 ```javascript
 // bad
 const a = {
+  p: p,
   f: function() {
   }
 }
 
 // good
 const a =  {
+  p,
   f() {
   }
 }
 ```
           </script>
-				</section-->
+				</section>
 
 				<section data-markdown>
           <script type="text/template">
@@ -416,7 +418,7 @@ function* longRunningTask() {
           <script type="text/template">
 ## 模块
 
-- 尽量使用ES6 module取代require。
+- 使用import取代require。
 
 ```javascript
 // bad
@@ -426,6 +428,38 @@ const func2 = moduleA.func2;
 
 // good
 import { func1, func2 } from 'moduleA';
+```
+          </script>
+				</section>
+
+				<section data-markdown>
+          <script type="text/template">
+## 模块
+
+- 使用export取代module.exports。
+
+```javascript
+// bad
+var React = require('react');
+
+var Breadcrumbs = React.createClass({
+  render() {
+    return <nav />;
+  }
+});
+
+module.exports = Breadcrumbs;
+
+// good
+import React from 'react';
+
+const Breadcrumbs = React.createClass({
+  render() {
+    return <nav />;
+  }
+});
+
+export default Breadcrumbs;
 ```
           </script>
 				</section>
