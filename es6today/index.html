@@ -49,7 +49,7 @@
 					<h1>ES6: 现在就用</h1>
 					<h3>Using ES6 Today</h3>
           <h3><qr-code data="http://slides.ruanyifeng.com/es6today/"></qr-code></h3>
-          <p>dwz.cn/CGJun</p>
+          <p>t.cn/RwQbQ9z</p>
 					<p>          
 						<small>2015.03.03</small>
 					</p>
@@ -453,6 +453,13 @@ import { func1, func2 } from 'moduleA';
 
 				transition: 'slide', // none/fade/slide/convex/concave/zoom
 
+        multiplex: {
+        // Example values. To generate your own, see the socket.io server instructions.
+        secret: null, // null so the clients do not have control of the master presentation
+        id: 'ec7eb73a8d445aa1', // id, obtained from socket.io server
+        url: 'revealjs.jit.su:80' // Location of your socket.io server
+    },
+
 				// Optional reveal.js plugins
 				dependencies: [
 					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
@@ -460,7 +467,9 @@ import { func1, func2 } from 'moduleA';
 					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
 					{ src: 'plugin/zoom-js/zoom.js', async: true },
-					{ src: 'plugin/notes/notes.js', async: true }
+					{ src: 'plugin/notes/notes.js', async: true },
+          { src: '//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js', async: true },
+          { src: 'plugin/multiplex/client.js', async: true }
 				]
 			});
 
